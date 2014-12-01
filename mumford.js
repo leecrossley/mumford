@@ -1,9 +1,19 @@
 var when = (function () {
     "use strict";
 
-    var when = {};
+    return function(condition) {
+        var iterator = function (then) {
+            if (condition()) {
+                return then();
+            }
+            return setTimeout(iterator.bind(this, then), 50);
+        };
 
-    return when;
+        return {
+            then: iterator
+        };
+    };
+
 }());
 
 if (typeof (exports) !== "undefined") {
