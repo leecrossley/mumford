@@ -1,9 +1,13 @@
 var when = function (condition) {
+    var context = this;
+
     var iterator = function (then) {
         if (condition()) {
-            return then();
+            then();
+        } else {
+            setTimeout(iterator.bind(this, then), 50);
         }
-        return setTimeout(iterator.bind(this, then), 50);
+        return context;
     };
 
     return {
