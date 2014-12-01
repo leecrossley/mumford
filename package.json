@@ -1,0 +1,30 @@
+{
+  "name": "mumford",
+  "author": "Lee Crossley <leee@hotmail.co.uk> (http://ilee.co.uk/)",
+  "description": "I will wait, I will wait for you - when().then()",
+  "homepage": "https://github.com/leecrossley/mumford",
+  "version": "0.0.1",
+  "main": "mumford.js",
+  "keywords": [
+    "wait",
+    "when",
+    "then",
+    "mumford"
+  ],
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:leecrossley/mumford.git"
+  },
+  "engines": {
+    "node": ">= 0.8.x"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jasmine": "^0.8.1",
+    "grunt-contrib-jshint": "^0.10.0"
+  }
+}
