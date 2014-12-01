@@ -7,16 +7,44 @@ describe("mumford", function() {
     });
 
     it("should run then when a 500ms timeout has elapsed", function(done) {
-        var hasWaited500ms;
+        var waited;
+
+        var hasWaited = function () {
+            return waited;
+        };
 
         setTimeout(function() {
-            hasWaited500ms = true;
+            waited = true;
         }, 500);
 
-        when(function() {
-            return hasWaited500ms;
-        }).then(function() {
-            expect(hasWaited500ms).toBeTruthy();
+        when(hasWaited).then(function() {
+            expect(waited).toBeTruthy();
+            done();
+        });
+    });
+
+    it("should chain second when", function(done) {
+        var waited;
+
+        var hasWaited = function () {
+            return waited;
+        };
+
+        var triggerTimeout = function () {
+            setTimeout(function() {
+                waited = true;
+            }, 500);
+        };
+
+        triggerTimeout();
+
+        when(hasWaited).then(function() {
+            expect(waited).toBeTruthy();
+            waited = false;
+            triggerTimeout();
+        })
+        .when(hasWaited).then(function() {
+            expect(waited).toBeTruthy();
             done();
         });
     });
