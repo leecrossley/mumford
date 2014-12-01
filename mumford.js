@@ -1,5 +1,5 @@
 var when = function (condition) {
-    var context = this;
+    var when = this;
 
     var iterator = function (then) {
         if (condition()) {
@@ -7,7 +7,7 @@ var when = function (condition) {
         } else {
             setTimeout(iterator.bind(this, then), 50);
         }
-        return context;
+        return when;
     };
 
     return {

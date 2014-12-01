@@ -23,7 +23,7 @@ describe("mumford", function() {
         });
     });
 
-    it("should chain second when", function(done) {
+    it("should chain two whens and run thens at the correct time", function(done) {
         var waited;
 
         var hasWaited = function () {
@@ -45,6 +45,43 @@ describe("mumford", function() {
         })
         .when(hasWaited).then(function() {
             expect(waited).toBeTruthy();
+            done();
+        });
+    });
+
+    it("should chain three whens and run thens at the correct time", function(done) {
+        var waited;
+
+        var callOrder = [];
+
+        var hasWaited = function () {
+            return waited;
+        };
+
+        var alwaysTrue = function () {
+            return true;
+        };
+
+        var triggerTimeout = function () {
+            setTimeout(function() {
+                waited = true;
+            }, 500);
+        };
+
+        triggerTimeout();
+
+        when(hasWaited).then(function() {
+            callOrder.push(1);
+        })
+        .when(alwaysTrue).then(function() {
+            waited = false;
+            callOrder.push(2);
+            triggerTimeout();
+        })
+        .when(hasWaited).then(function() {
+            callOrder.push(3);
+            expect(callOrder).toEqual([1, 2, 3]);
+
             done();
         });
     });
