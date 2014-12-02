@@ -1,38 +1,39 @@
-var when = function (func) {
-    var when = this;
-
+var when = (function () {
     var queue = [];
-
     var isRunning;
 
-    var triggerQueue = function () {
-        if (queue.length > 0) {
-            queue[0]();
-        }
-        isRunning = true;
-    };
+    return function (func) {
+        var when = this;
 
-    var then = function (callback) {
-        queue.push(iterator.bind(this, callback, func));
-        triggerQueue();
-        return when;
-    };
+        var triggerQueue = function () {
+            if (!isRunning && queue.length > 0) {
+                isRunning = true;
+                queue[0]();
+            }
+        };
 
-    var iterator = function (callback, condition) {
-        if (condition()) {
-            callback();
-            isRunning = false;
-            queue.shift();
+        var then = function (callback) {
+            queue.push(iterator.bind(this, callback, func));
             triggerQueue();
-        } else {
-            setTimeout(iterator.bind(this, callback, condition), 50);
-        }
-    };
+            return when;
+        };
 
-    return {
-        then: then
+        var iterator = function (callback, condition) {
+            if (condition()) {
+                callback();
+                queue.shift();
+                isRunning = false;
+                triggerQueue();
+            } else {
+                setTimeout(iterator.bind(this, callback, condition), 50);
+            }
+        };
+
+        return {
+            then: then
+        };
     };
-};
+}());
 
 if (typeof (exports) !== "undefined") {
     exports.when = when;
