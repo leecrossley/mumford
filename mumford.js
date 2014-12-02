@@ -20,15 +20,13 @@ var when = function (condition) {
     var iterator = function (callback, defer) {
         if (condition()) {
             callback();
-            defer.resolve();
-        } else {
-            setTimeout(iterator.bind(this, callback, defer), 50);
+            return defer.resolve();
         }
-        return when;
+        setTimeout(iterator.bind(this, callback, defer), 50);
     };
 
     var then = function (callback) {
-        var defer = new Defer(this);
+        var defer = new Defer(when);
         iterator(callback, defer);
         return defer;
     };
