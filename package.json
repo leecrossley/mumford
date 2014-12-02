@@ -3,7 +3,7 @@
   "author": "Lee Crossley <leee@hotmail.co.uk> (http://ilee.co.uk/)",
   "description": "I will wait, I will wait for you - when().then()",
   "homepage": "https://github.com/leecrossley/mumford",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "mumford.js",
   "keywords": [
     "wait",

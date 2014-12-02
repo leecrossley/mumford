@@ -1,6 +1,4 @@
 var when = (function () {
-    "use strict";
-
     var queue = [];
     var isRunning;
 
