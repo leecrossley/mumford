@@ -49,7 +49,7 @@ describe("mumford", function() {
         });
     });
 
-    it("should chain three whens and run thens at the correct time", function(done) {
+    it("should chain three whens, be syncronous run thens at the correct time", function(done) {
         var waited;
 
         var callOrder = [];
