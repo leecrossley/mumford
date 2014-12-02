@@ -50,8 +50,9 @@ describe("mumford", function() {
     });
 
     it("should chain three whens, be syncronous run thens at the correct time", function(done) {
-        var waited;
+        var startTime = new Date();
 
+        var waited;
         var callOrder = [];
 
         var hasWaited = function () {
@@ -81,7 +82,7 @@ describe("mumford", function() {
         .when(hasWaited).then(function() {
             callOrder.push(3);
             expect(callOrder).toEqual([1, 2, 3]);
-
+            
             done();
         });
     });
