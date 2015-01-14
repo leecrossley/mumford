@@ -35,6 +35,28 @@ var when = (function () {
     };
 }());
 
+var doUntil = function (func) {
+    var callback = function () {};
+
+    var iterator = function (func) {
+        var next = function (done) {
+            return done ? callback() : iterator(func);
+        };
+        func(next);
+    };
+
+    var then = function () {
+        callback = arguments[0];
+    };
+
+    iterator(func);
+
+    return {
+        then: then
+    };
+};
+
 if (typeof (exports) !== "undefined") {
     exports.when = when;
+    exports.doUntil = doUntil;
 }

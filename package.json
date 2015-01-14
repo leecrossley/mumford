@@ -3,13 +3,16 @@
   "author": "Lee Crossley <leee@hotmail.co.uk> (http://ilee.co.uk/)",
   "description": "I will wait, I will wait for you - when().then()",
   "homepage": "https://github.com/leecrossley/mumford",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "mumford.js",
   "keywords": [
     "wait",
     "when",
     "then",
-    "mumford"
+    "mumford",
+    "do",
+    "until",
+    "while"
   ],
   "scripts": {
     "test": "grunt test"

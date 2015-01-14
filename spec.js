@@ -1,4 +1,4 @@
-/* global when */
+/* global when, doUntil */
 
 describe("mumford", function() {
 
@@ -83,6 +83,29 @@ describe("mumford", function() {
 
             done();
         });
+    });
+
+    it("should complete an async doUntil", function(done) {
+        var input = [1, 2, 3];
+        var output = [];
+
+        var populateOutput = function (next) {
+            var item = input.shift();
+
+            setTimeout(function () {
+                if (item) {
+                    output.push(item);
+                }
+                next(!item);
+            }, 10);
+        };
+
+        var assert = function () {
+            expect(output).toEqual([1, 2, 3]);
+            done();
+        };
+
+        doUntil(populateOutput).then(assert);
     });
 
 });

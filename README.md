@@ -2,7 +2,7 @@
 
 [I will wait](https://www.youtube.com/watch?v=rGKfrgqWcv0)
 
-## Basic usage
+## when().then()
 
 Pass `when` a function, once it returns true, the `then` function will be resolved.
 
@@ -16,6 +16,22 @@ when(condition).then(function() {
     // you can chain when synchronously
 });
 ```
+
+## doUntil().then()
+
+Pass `doUntil` a function that takes a parameter `next`, an async function can then be executed, calling next in it's own callback. If `next` is passed true, it will run again. Passing false will resolve the `then` function.
+
+```js
+doUntil(function (next) {
+    var item = input.shift();
+    someAsyncFunction(function() {
+        next(true); // passing false will resolve then()
+    });
+}).then(function() {
+    // do something after
+});
+```
+
 
 ## License
 
