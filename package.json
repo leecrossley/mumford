@@ -1,33 +1,56 @@
 {
-  "name": "mumford",
-  "author": "Lee Crossley <leee@hotmail.co.uk> (http://ilee.co.uk/)",
-  "description": "I will wait, I will wait for you - when().then()",
-  "homepage": "https://github.com/leecrossley/mumford",
-  "version": "0.2.1",
-  "main": "mumford.js",
-  "keywords": [
-    "wait",
-    "when",
-    "then",
-    "mumford",
-    "do",
-    "until",
-    "while"
-  ],
-  "scripts": {
-    "test": "grunt test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:leecrossley/mumford.git"
-  },
-  "engines": {
-    "node": ">= 0.8.x"
-  },
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-jasmine": "^0.8.2",
-    "grunt-contrib-jshint": "^0.11.0"
-  }
+    "name": "mumford",
+    "author": "Lee Crossley <leee@hotmail.co.uk> (http://ilee.co.uk/)",
+    "description": "I Will Wait (for You) as a tiny abortable polling toolkit.",
+    "homepage": "https://github.com/leecrossley/mumford",
+    "version": "2.0.0",
+    "license": "MIT",
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "keywords": [
+        "abort",
+        "async",
+        "poll",
+        "retry",
+        "timeout",
+        "wait"
+    ],
+    "scripts": {
+        "build": "tsup --config tsup.config.ts && node scripts/build-types.mjs",
+        "check": "npm run typecheck && npm run build && npm run test:unit && npm run test:smoke && npm run test:types",
+        "test": "npm run check",
+        "test:smoke": "vitest run tests/smoke.test.ts",
+        "test:types": "tsc --noEmit -p fixtures/node16-esm/tsconfig.json && tsc --noEmit -p fixtures/node16-cjs/tsconfig.json && tsc --noEmit -p fixtures/bundler-types/tsconfig.json",
+        "test:unit": "vitest run tests/unit.test.ts",
+        "typecheck": "tsc --noEmit -p tsconfig.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:leecrossley/mumford.git"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "devDependencies": {
+        "@types/node": "^25.6.0",
+        "tsup": "^8.5.1",
+        "typescript": "^6.0.3",
+        "vitest": "^4.1.4"
+    }
 }
