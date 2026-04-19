@@ -34,6 +34,7 @@
     "scripts": {
         "build": "tsup --config tsup.config.ts && node scripts/build-types.mjs",
         "check": "npm run typecheck && npm run build && npm run test:unit && npm run test:smoke && npm run test:types",
+        "prepare": "npm run build",
         "test": "npm run check",
         "test:smoke": "vitest run tests/smoke.test.ts",
         "test:types": "tsc --noEmit -p fixtures/node16-esm/tsconfig.json && tsc --noEmit -p fixtures/node16-cjs/tsconfig.json && tsc --noEmit -p fixtures/bundler-types/tsconfig.json",
